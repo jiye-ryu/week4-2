@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		@font-face {
+		font-family: 'UhBeeSe_hyun';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSe_hyun.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+		}
+
+		#gameText{position: absolute; z-index: 100; left: 300px; top: 200px; font-size: 8rem; color: white; font-family:'UhBeeSe_hyun';}
+		#ggameText{position: absolute; z-index: 100; left: 300px; top: 450px; font-size: 2rem; color: palevioletred; font-family:'UhBeeSe_hyun';}
+		.word{opacity: 0; animation: fadein 1s forwards;}
+		.word2{opacity: 0; animation: fadein 1s forwards;}
+		@keyframes fadein{
+			to{opacity: 1;}
+	}
+		#but{width: 150px; height: 60px; background: lightblue; color: black; font-family:'UhBeeSe_hyun'; font-size: 2rem; position: absolute;left: 300px; top: 700px; text-align: center; border-radius: 10px; animation: big 1s infinite cubic-bezier(.17,.67,.57,1.01);}
+		#but:hover{background: red;}
+		@keyframes big{
+			50%{transform: scale( 1.1);}
+		}
+		section{height: 1000px; background-image: url(bg.png); background-size: cover; margin: 0; padding: 0; background-attachment: fixed;}
+		body{margin: 0;}
+		.rat{ width: 50px; height: 50px; background: none; position: absolute; background-image: url(item.png); background-size: cover; z-index: 8;}
+		#someone{background-image: url(someone.png); background-size: cover; width: 50px; height: 50px; position: absolute; top: 0px; left: 0px; z-index: 9;}
+		#display{height: 50px; background-color: none; position: sticky; top: 0px; left: 0px; z-index: 10; font-size: 24px; padding: 20px 40px; text-align: right; color: lightblue; font-family:'UhBeeSe_hyun';}
+		
+		.text{width: 1000px;}
+	</style>
+</head>
+<body>
+	<section id="intro">
+		<div id="gameText" class="text"></div>
+		<div id="ggameText" class="text"></div>
+		<div id="but">PLAY</div>
+	</section>
+	<section id="sky">
+		<div id="display"></div>
+		<div id="someone"></div>
+		<audio id="sound" src="sound.m4a"></audio>
+		<audio id="bgSnd" src="ghostDuet.mp3"></audio>
+	</section>
+	<script type="text/javascript">
+
+	var game = "유령을 구원해줘!!<br>"
+	var ggame = "  <br>노래가 끝나기 전에 유령 30마리를 빛으로 구원해주세요.<br> 빛은 상하좌우 키보드로 이동이 가능합니다."
+	var gameArr = game.split(" "); 
+	var ggameArr = ggame.split(" "); 
+	var s = 0;
+	var k = 0;
+	var myTimer = setInterval(print,500);
+	var myTimer2 = setInterval(print2,500);
+
+	function print(){
+		var t = document.createElement("span");
+		t.innerHTML = gameArr[s] + " ";
+		t.className = "word";
+		s++;
+		gameText.appendChild(t);
+		
+	
+		if(s == gameArr.length){
+			clearInterval(myTimer);
+		}
+	}
+
+	function print2(){
+		var tt = document.createElement("spant");
+		tt.innerHTML = ggameArr[k] + " ";
+		tt.className = "word2";
+		k++;
+		ggameText.appendChild(tt);
+		
+	
+		if(k == ggameArr.length){
+			clearInterval(myTimer2);
+		}
+	}
+		function randomBH(min, max) {
+		  min = Math.ceil(min);
+		  max = Math.floor(max);
+		  return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		but.onclick = function(){
+			var but = document.getElementById("but")
+			var intro = document.getElementById("intro")
+				intro.parentNode.removeChild(intro);
+				bgSnd.play();
+		}
+
+
+		let timer = setInterval(ddd,1000);
+		let t = 0;
+		let score = 30;
+
+		let a = Math.random()*window.innerWidth/50;
+		let b = Math.random()*window.innerHeight/50;
+		let c = a.toFixed();
+		let d = b.toFixed();
+
+		var x = 0;
+		var y = 0;
+
+		function ddd(){
+			t++;//실행
+			makeRat();
+			console.log(t)
+			if(t == 70){
+			clearInterval(timer);
+			alert("아쉽네요. 다시 시도해주세요.");
+			}
+		}
+
+		function makeRat(fx,fy){
+			var t = document.createElement("div");
+			t.className = "rat";
+			t.id = "rat" + t;
+			
+			
+			t.style.left = c * 50 + "px";
+			t.style.top = d * 50 + "px";
+
+
+			document.body.appendChild(t);
+			setTimeout(re,5000);
+			function re(){
+				let a = document.getElementById("rat" + t);
+				a.remove();
+
+			}	
+
+		}
+
+		someone.style.left = x + "px";
+		someone.style.top = y + "px";
+		window.onkeydown = function(e){
+			if(e.keyCode == 37){
+					x = x - 1;
+					someone.style.left = x*50 + "px";
+			}else if(e.keyCode == 38){
+					y = y - 1;
+					someone.style.top = y*50 + "px";
+			}else if(e.keyCode == 39){
+					x = x + 1;
+					someone.style.left = x*50 + "px";
+			}else if(e.keyCode == 40){
+					y = y + 1;
+					someone.style.top = y*50 + "px";
+			};
+			console.log(x,y);
+				for(var i=0; i<1; i++){
+                         if(x == c && y == d){
+                                console.log("captured!!!");
+                                 sound.play();
+                                 score--; display.innerHTML = "남은 유령 : " + score;
+                      			  }
+                      	if(score == 0){
+                      		alert("구원해주셔서 감사합니다!");
+                      	}        
+                			 }
+
+		}
+
+		
+		
+
+	</script>
+
+</body>
+</html>
